@@ -75,3 +75,27 @@ Jenkins is crucial for continuous integration and deployment in this project. Th
 - Configured a Jenkins instance on an Azure VM.
 - Installed plugins, including the OpenShift plugin, for seamless integration.
 - Defined a Jenkinsfile to automate the `deployment-model` pipeline, running it hourly to showcase continuous integration and deployment.
+
+
+## Getting Started
+
+To get the project up and running, follow these steps:
+
+1. Clone the repository to your local machine.
+
+2. Create and activate a Python virtual environment:
+   ```sh
+   python -m venv venv
+   source venv/bin/activate
+   ```
+   
+3. Install the required dependencies:
+   ```sh
+   pip install -r requirements.txt
+   ```
+   
+4. Build the Docker images using the provided Dockerfiles.
+
+5. Deploy the components on an OpenShift cluster using the configuration files in the `openshift` directory.
+
+6. Configure Jenkins by installing necessary plugins and setting up pipeline jobs using the provided `Jenkinsfile`.
