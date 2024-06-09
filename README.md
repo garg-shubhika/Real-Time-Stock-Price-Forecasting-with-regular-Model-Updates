@@ -35,3 +35,43 @@ OpenShift is used for streamlined deployment. The OpenShift directory includes c
 #### Jenkins Integration
 
 Jenkins is crucial for continuous integration and deployment in this project. The jenkins directory contains pipeline configurations stored in the Jenkinsfile. These configurations automate data processing, model training, and deployment processes. The pipelines can be triggered by various events, such as specific time intervals or codebase changes. Integrating Jenkins highlights the project's practical use of continuous integration in a real-world scenario.
+
+
+
+## The Workflow
+
+#### Data Collection
+- Used the `yfinance` library to gather stock data from Yahoo Finance for the top 10 popular stocks.
+- Segregated data into historical and current sets.
+- Implemented preprocessing steps to ensure data quality and consistency.
+
+#### Model Training
+- Used `HistGradientBoostingRegressor` for predictive modelling.
+- Saved trained models in `models/saved_models`.
+- Divided the process into three scripts:
+  - `model_training`: Trains the initial model with historical data and saves it.
+  - `model_update`: Updates the model using both historical and current data, then saves the updated model.
+  - `model_evaluation`: Evaluates models against real-time data and replaces the initial model with the updated one if it performs better. This process runs hourly after new data retrieval.
+
+#### Web Application
+- Developed a user-friendly web app using the Django framework.
+- Enabled users to input a desired time and view predicted stock prices for the top 10 stocks.
+- Integrated trained models to provide real-time predictions.
+
+#### Dockerization
+- Created Dockerfiles for:
+  - Data collection and processing.
+  - Model training, evaluation, and updating.
+  - Web application deployment.
+- Each Dockerfile encapsulates specific functionality, ensuring modularity and portability.
+
+#### OpenShift Cluster
+- Set up a local OpenShift cluster using CodeReady Containers (CRC).
+- Implemented two deployment files:
+  - `deployment-model`: Manages sequential execution of data processing and model training, networking, and shared volumes, and ensures minimum replica availability.
+  - `django-app-deployment`: Manages web server deployment, load balancing with multiple replicas, and ensures continuous application availability.
+
+#### Jenkins Integration
+- Configured a Jenkins instance on an Azure VM.
+- Installed plugins, including the OpenShift plugin, for seamless integration.
+- Defined a Jenkinsfile to automate the `deployment-model` pipeline, running it hourly to showcase continuous integration and deployment.
